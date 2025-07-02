@@ -8,8 +8,8 @@
 [![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![PyQt](https://img.shields.io/badge/PyQt-6.0+-green.svg)](https://pypi.org/project/PyQt6/)
 [![Firebase](https://img.shields.io/badge/Firebase-Realtime%20Database-orange.svg)](https://firebase.google.com/)
-[![Build Status](https://github.com/yourusername/thought-bubble/actions/workflows/build.yml/badge.svg)](https://github.com/yourusername/thought-bubble/actions)
-[![Code Coverage](https://img.shields.io/codecov/c/github/yourusername/thought-bubble)](https://codecov.io/gh/yourusername/thought-bubble)
+[![Build Status](https://github.com/majdabualnour/Thought-Bubble/actions/workflows/build.yml/badge.svg)](https://github.com/majdabualnour/Thought-Bubble/actions)
+[![Code Coverage](https://img.shields.io/codecov/c/github/majdabualnour/Thought-Bubble)](https://codecov.io/gh/majdabualnour/Thought-Bubble)
 
 ## 🌟 Features
 
@@ -25,8 +25,8 @@
 ### Desktop Version (PyQt6)
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/thought-bubble.git
-cd thought-bubble
+git clone https://github.com/majdabualnour/Thought-Bubble.git
+cd Thought-Bubble
 
 # Create and activate virtual environment (recommended)
 python -m venv venv
@@ -36,20 +36,19 @@ source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 pip install -r requirements.txt
 
 # Run the application
-python main.py
+python pcgame.py
 ```
 
 ### Web Version
 ```bash
 # The web version is a single HTML file - just open it in a browser!
-open web/index.html
+open index.html
 ```
 
 ### Mobile Version (Kivy)
 ```bash
-cd mobile
 pip install -r requirements.txt
-python main.py
+python mobilegame.py
 ```
 
 ## 🛠️ Tech Stack
@@ -100,7 +99,7 @@ erDiagram
 
 | Desktop Version | Mobile Version | Web Version |
 |-----------------|----------------|-------------|
-| ![Desktop Screenshot](screenshots/desktop.png) | ![Mobile Screenshot](screenshots/mobile.png) | ![Web Screenshot](screenshots/web.png) |
+| ![Desktop Screenshot](screenshots/pc.png) | ![Mobile Screenshot](screenshots/mobile.png) | ![Web Screenshot](screenshots/web.png) |
 
 ## 🚀 Deployment
 
@@ -114,7 +113,7 @@ erDiagram
 
 ### Desktop Build
 ```bash
-pyinstaller --onefile --windowed --icon=assets/icons/app.ico main.py
+pyinstaller --onefile --windowed --icon=assets/icons/app.ico pcgame.py
 ```
 
 ### Android Build
