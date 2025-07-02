@@ -20,21 +20,31 @@ import pyrebase
 from PyQt6.QtMultimedia import QSoundEffect, QMediaPlayer, QAudioOutput
 from PyQt6.QtCore import QUrl
 
+
+
+
+import os
+import sys
+
+def resource_path(relative_path):
+    """ Get path to resource, works for dev and for PyInstaller .exe """
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.abspath(relative_path)
 # Firebase Configuration
 FIREBASE_API_KEY = "AIzaSyBslVrw8gUYRkjpGHKWeftbvDp0-oBa9w0"
 FIREBASE_DB_URL = "https://csgame-f1969-default-rtdb.firebaseio.com"
 
 # Character images (replace with your actual image paths)
 CHARACTER_IMAGES = {
-    "happy": "assets/images/happy.png",
-    "neutral": "assets/images/neutral.png",
-    "sad": "assets/images/sad.png",
-    "thinking": "assets/images/thinking.png"
+    "happy": resource_path("assets/images/happy.png"),
+    "neutral": resource_path("assets/images/neutral.png"),
+    "sad": resource_path("assets/images/sad.png"),
+    "thinking": resource_path("assets/images/thinking.png")
 }
 
 # Background image
 BACKGROUND_IMAGE = "background.jpg"
-
 # Load custom font
 def load_fonts():
     QFontDatabase.addApplicationFont("assets/fonts/SuperPixel.ttf")
@@ -173,15 +183,15 @@ class LoginDialog(QDialog):
 
         # Setup sounds
         self.click_sound = QSoundEffect()
-        self.click_sound.setSource(QUrl.fromLocalFile("assets/sounds/click.wav"))
+        self.click_sound.setSource(QUrl.fromLocalFile(resource_path("assets/sounds/click.wav")))
         self.click_sound.setVolume(0.3)
         
         self.success_sound = QSoundEffect()
-        self.success_sound.setSource(QUrl.fromLocalFile("assets/sounds/success.mp3"))
+        self.success_sound.setSource(QUrl.fromLocalFile(resource_path("assets/sounds/success.mp3")))
         self.success_sound.setVolume(0.3)
         
         self.error_sound = QSoundEffect()
-        self.error_sound.setSource(QUrl.fromLocalFile("assets/sounds/error.mp3"))
+        self.error_sound.setSource(QUrl.fromLocalFile(resource_path("assets/sounds/error.mp3")))
         self.error_sound.setVolume(0.3)
 
         self.FIREBASE_API_KEY = FIREBASE_API_KEY
@@ -555,11 +565,7 @@ class FirebaseWorker(QThread):
             response = requests.get(url)
             if response.status_code == 200:
                 journal_data = response.json() or {}
-                print('here')
-                print(type(journal_data))
-                print(isinstance(journal_data, list))
                 if isinstance(journal_data, list) :
-                    print('asd;fjas;fj')
                     temp = {}
                     for i , j in enumerate(journal_data):
                         temp[f'{i}'] = j
@@ -645,30 +651,30 @@ class ThoughtGame(QMainWindow):
         
         # Setup sound effects
         self.click_sound = QSoundEffect()
-        self.click_sound.setSource(QUrl.fromLocalFile("assets/sounds/click.wav"))
+        self.click_sound.setSource(QUrl.fromLocalFile(resource_path("assets/sounds/click.wav")))
         self.click_sound.setVolume(0.3)
         
         self.correct_sound = QSoundEffect()
-        self.correct_sound.setSource(QUrl.fromLocalFile("assets/sounds/correct.wav"))
+        self.correct_sound.setSource(QUrl.fromLocalFile(resource_path("assets/sounds/correct.wav")))
         self.correct_sound.setVolume(0.3)
         
         self.wrong_sound = QSoundEffect()
-        self.wrong_sound.setSource(QUrl.fromLocalFile("assets/sounds/wrong.wav"))
+        self.wrong_sound.setSource(QUrl.fromLocalFile(resource_path("assets/sounds/wrong.wav")))
         self.wrong_sound.setVolume(0.3)
         
         self.page_turn_sound = QSoundEffect()
-        self.page_turn_sound.setSource(QUrl.fromLocalFile("assets/sounds/correct.wav"))
+        self.page_turn_sound.setSource(QUrl.fromLocalFile(resource_path("assets/sounds/page-flip.mp3")))
         self.page_turn_sound.setVolume(0.3)
         
         self.notification_sound = QSoundEffect()
-        self.notification_sound.setSource(QUrl.fromLocalFile("assets/sounds/notification.wav"))
+        self.notification_sound.setSource(QUrl.fromLocalFile(resource_path("assets/sounds/notification.wav")))
         self.notification_sound.setVolume(0.3)
         
         # Background music
         self.audio_output = QAudioOutput()
         self.background_music = QMediaPlayer()
         self.background_music.setAudioOutput(self.audio_output)
-        self.background_music.setSource(QUrl.fromLocalFile("assets/sounds/background.mp3"))
+        self.background_music.setSource(QUrl.fromLocalFile(resource_path("assets/sounds/background.mp3")))
         self.audio_output.setVolume(0.2)
         self.background_music.setLoops(QMediaPlayer.Loops.Infinite)
 
@@ -724,7 +730,7 @@ class ThoughtGame(QMainWindow):
     
     def initialize_firebase(self):
         try:
-            cred = credentials.Certificate("csgame-f1969-firebase-adminsdk-fbsvc-a042dd397c.json")
+            cred = credentials.Certificate(resource_path("assets/csgame-f1969-firebase-adminsdk-fbsvc-a042dd397c.json"))
             firebase_admin.initialize_app(cred, {
                 'databaseURL': FIREBASE_DB_URL
             })
@@ -848,7 +854,6 @@ class ThoughtGame(QMainWindow):
     def show_login_dialog(self):
         self.play_click_sound()
         dialog = LoginDialog(parent=self)
-        print('majd')
         if dialog.exec() == QDialog.DialogCode.Accepted:
             self.user = {
                 'localId': dialog.local_id,
@@ -936,7 +941,6 @@ class ThoughtGame(QMainWindow):
         btn_layout.addWidget(journal_btn)
         btn_layout.addWidget(leaderboard_btn)
         btn_layout.addWidget(settings_btn)
-        print(self.is_admin, 'is admin?')
         
         if self.is_admin:
            
@@ -2223,7 +2227,6 @@ class ThoughtGame(QMainWindow):
                         "type": data.get("label", "").lower(),
                     }
 
-                print(question_data)
                 formatted_data = convert_to_image_format(question_data)
 
                 # 1. Get existing questions
@@ -2237,7 +2240,6 @@ class ThoughtGame(QMainWindow):
                 new_key = f"q{next_index}"
 
                 # 3. Add new question at next 'qN' key
-                print(formatted_data)
                 self.db.child("questions").child(new_key).set(formatted_data)
 
                 # 4. Refresh UI
@@ -2297,19 +2299,15 @@ class ThoughtGame(QMainWindow):
         try:
 
             question_data = self.questions[qid]
-            print(question_data)
             dialog = AdminQuestionDialog(self, question_data)
             
             if dialog.exec() == QDialog.DialogCode.Accepted:
                 updated_data = dialog.get_question_data()
-                print(updated_data)
 
                 # Fix: use Firebase key instead of index
                 firebase_key = self.question_keys[qid]
                 updated_data = convert_to_image_format(updated_data)
-                print(updated_data)
                 self.db.child("questions").child(firebase_key).update(updated_data)
-                print('here')
 
                 self.load_questions()                # Refresh table
                 self.load_questions_from_firebase()  # Refresh game logic
@@ -2402,7 +2400,6 @@ class ThoughtGame(QMainWindow):
             q for q in self.questions 
             if q.get("Difficulty", "Easy") == self.current_difficulty
         ]
-        print(filtered_questions)
         
         if not filtered_questions:
             msg = StyledMessageBox(self)
@@ -2433,7 +2430,6 @@ class ThoughtGame(QMainWindow):
             
         question = self.current_questions[self.current_question_index-1]
         correct = False
-        print(question)
         
         if (action == "accept" and question["label"] == "Positive") or \
            (action == "reject" and question["label"] == "Negative"):
