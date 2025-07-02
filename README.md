@@ -151,7 +151,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Project Maintainer - [Majd Abualnour](mailto:majdapoalnoor@gmail.com)
 
-Website - [https://thoughtbubble.example.com](https://thoughtbubble.example.com)
+Website - [https://majdabualnour.github.io/Thought-Bubble/](https://majdabualnour.github.io/Thought-Bubble/)
 
 ## 🙏 Acknowledgments
 
