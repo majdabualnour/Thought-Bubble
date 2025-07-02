@@ -150,7 +150,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## ✉️ Contact
 
-Project Maintainer - [Your Name](mailto:your.email@example.com)
+Project Maintainer - [Majd Abualnour](mailto:majdapoalnoor@gmail.com)
 
 Website - [https://thoughtbubble.example.com](https://thoughtbubble.example.com)
 
