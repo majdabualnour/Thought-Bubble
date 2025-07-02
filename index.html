@@ -27,7 +27,7 @@
             background-color: var(--white);
             color: var(--text);
             min-height: 100vh;
-            background-image: url('https://images.unsplash.com/photo-1518655048521-f130df041f66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-image: url('assets/images/back.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -306,12 +306,15 @@
         </div>
         
         <!-- Main Menu -->
-        <div id="main-menu" class="overlay hidden">
+        <div id="main-menu" class="overlay hidden" style="  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);">
             <h1>Thought Bubble</h1>
             <p id="welcome-message" style="text-align: center; color: var(--text-light); margin-bottom: 30px;">Welcome back, Player!</p>
             
             <div style="text-align: center;">
-                <button class="btn" onclick="showPage('game-page')">Play Game</button>
+                <button class="btn" onclick="showPage('game-page') ;loadNextScenario()">Play Game</button>
                 </div>
                       <div style="text-align: center;">
                 <button class="btn btn-secondary" onclick="showPage('journal-page')">My Journal</button>
@@ -324,7 +327,7 @@
             </div>
             
             <div style="text-align: right; margin-top: 30px;">
-                <button class="btn btn-secondary" onclick="logout()">Logout</button>
+                <button class="btn btn-secondary" style="width: 100px;" onclick="logout()">Logout</button>
             </div>
         </div>
         
